@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <style>
+    :root {
+      --bg-main: #f7f9fc;
+      --bg-card: #ffffff;
+      --text-main: #24292f;
+      --text-muted: #62748e;
+      --border-color: #dbe4f0;
+      --primary: #5b46e8;
+      --primary-hover: #4936cf;
+      --accent: #f06543;
+      --success: #16a34a;
+      --success-hover: #15803d;
+      --danger: #cf222e;
+      --soft-blue: #eef3ff;
+      --shadow: 0 10px 26px rgba(30,41,59,0.08);
+    }
+
+    body { 
+      width: 380px; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+      padding: 0; 
+      margin: 0; 
+      color: var(--text-main); 
+      background-color: var(--bg-main); 
+    }
+
+    body::-webkit-scrollbar { width: 8px; }
+    body::-webkit-scrollbar-thumb { background: #9aa8bb; border-radius: 999px; }
+    
+    /* Header Area */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      padding: 16px 18px 14px;
+      border-bottom: 1px solid #edf1f7;
+    }
+    .header-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-title strong { color: var(--accent); }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-popout {
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #111827;
+      background-color: #eaf0f8;
+    }
+    .btn-popout:hover { background-color: #dfe8f5; }
+
+    /* Content Area */
+    .container { padding: 14px 16px 16px; }
+    .card { 
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color); 
+      border-radius: 16px; 
+      padding: 16px; 
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    
+    .form-group { margin-bottom: 12px; }
+    .form-group:last-child { margin-bottom: 0; }
+    
+    label { 
+      display: block; 
+      font-weight: 700; 
+      margin-bottom: 6px; 
+      font-size: 12px; 
+      color: #1f2937; 
+    }
+    
+    input, select { 
+      width: 100%; 
+      padding: 10px 12px; 
+      box-sizing: border-box; 
+      border: 1px solid var(--border-color); 
+      border-radius: 8px; 
+      font-size: 13px; 
+      transition: all 0.2s;
+      background: #ffffff;
+    }
+    input:focus, select:focus { 
+      border-color: var(--primary); 
+      outline: none; 
+      box-shadow: 0 0 0 3px rgba(91,70,232,0.15); 
+    }
+    
+    /* Search Bar Input Style */
+    .search-input { 
+      padding: 6px 10px; 
+      font-size: 12px; 
+      border-style: solid; 
+      background-color: #f8fafc; 
+      margin-bottom: 6px;
+    }
+    
+    /* Token Area Styling */
+    .token-wrapper { display: flex; gap: 6px; }
+    .token-wrapper input { flex-grow: 1; }
+
+    .language-select {
+      width: 48px;
+      min-width: 48px;
+      height: 34px;
+      padding: 4px 6px;
+      border-radius: 999px;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+    
+    .btn {
+      border: 1px solid rgba(27,31,36,0.15);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: background-color 0.2s;
+    }
+    .btn-action { padding: 6px 12px; background: #f6f8fa; border: 1px solid var(--border-color); }
+    .btn-action:hover { background: #f3f4f6; }
+
+    .create-pr-card { position: relative; padding-top: 42px; }
+    .btn-refresh {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      color: var(--primary);
+      background: var(--soft-blue);
+      font-size: 17px;
+      line-height: 1;
+    }
+    .btn-refresh:hover { background: #e2e9ff; }
+    
+    .btn-submit { 
+      width: 100%; 
+      padding: 12px; 
+      background: linear-gradient(135deg, #5b46e8, #6f52f5);
+      color: white; 
+      font-size: 14px;
+      border: 0;
+      box-shadow: 0 10px 18px rgba(91,70,232,0.22);
+    }
+    .btn-submit:hover { background: linear-gradient(135deg, #4936cf, #5b46e8); }
+    
+    #status { 
+      margin-top: 12px; 
+      font-size: 13px; 
+      font-weight: 500; 
+      word-break: break-all; 
+      text-align: center; 
+      padding: 8px;
+      border-radius: 6px;
+    }
+    
+    /* Footer Credit */
+    .footer-credit {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 16px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 10px;
+    }
+    .footer-credit strong { color: var(--primary); }
+
+    .badge { font-size: 11px; color: var(--success); font-weight: 500; margin-top: 4px; display: none; }
+    .hidden { display: none !important; }
+
+    .section-title {
+      margin: 16px 0 9px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card .section-title:first-child { margin-top: 0; }
+
+    .pr-table-wrapper {
+      max-height: 260px;
+      overflow: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .pr-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 12px;
+    }
+
+    .pr-table th,
+    .pr-table td {
+      padding: 10px 9px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .pr-table th {
+      position: sticky;
+      top: 0;
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .pr-table tr:last-child td { border-bottom: 0; }
+    .pr-title { max-width: 190px; word-break: break-word; }
+    .pr-branches { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
+    .pr-link { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .pr-link:hover { text-decoration: underline; }
+    .pr-empty { padding: 12px; color: var(--text-muted); font-size: 12px; text-align: center; }
+    .pr-state {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 800;
+      text-transform: capitalize;
+    }
+    .pr-state.closed { color: var(--danger); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <div class="header-bar">
+    <div class="header-title">Git Pull Request <strong>Fast-Track</strong></div>
+    <div class="header-actions">
+      <select id="languageSelect" class="language-select" title="Ngôn ngữ" aria-label="Ngôn ngữ" data-i18n-title="languageLabel">
+        <option value="vi">🇻🇳</option>
+        <option value="en">🇬🇧</option>
+      </select>
+      <button type="button" id="popoutBtn" class="btn-popout" title="Mở cửa sổ độc lập" data-i18n-title="popoutTitle">
+        ↗ <span data-i18n="popoutButton">Cửa sổ lớn</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2 class="section-title" data-i18n="openPrTitle">Pull Request đang mở</h2>
+    <div class="card">
+      <div id="prList" class="pr-table-wrapper">
+        <div class="pr-empty" data-i18n="chooseRepoToLoadPr">-- Chọn Repository để tải danh sách PR đang mở --</div>
+      </div>
+    </div>
+
+    <h2 class="section-title" data-i18n="createPrTitle">Tạo Pull Request</h2>
+    <!-- Card 2: Lựa chọn vị trí Git -->
+    <div class="card create-pr-card">
+      <button type="button" id="refreshListsBtn" class="btn btn-action btn-refresh" title="Làm mới Branch & PR" aria-label="Làm mới Branch & PR" data-i18n-title="refreshListsButton">↻</button>
+
+      <div class="form-group">
+        <label for="defaultRepoInput" data-i18n="defaultRepoLabel">Repo mặc định sẽ tự chọn khi mở popup:</label>
+        <input type="text" id="defaultRepoInput" placeholder="Ví dụ: psc-tracker-service hoặc owner/repo" data-i18n-placeholder="defaultRepoPlaceholder">
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="repoLabel">1. Chọn Repository:</label>
+        <input type="text" id="repoSearch" class="search-input" placeholder="🔍 Lọc nhanh Repository..." data-i18n-placeholder="repoSearchPlaceholder">
+        <select id="repoSelect">
+          <option value="" data-i18n="saveTokenToLoadRepo">-- Lưu Token để tải Repo --</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-top: 10px;">
+        <label data-i18n="baseLabel">2. Nhánh Base (Nhánh Đích):</label>
+        <input type="text" id="baseSearch" class="search-input" placeholder="🔍 Lọc nhanh nhánh Base..." data-i18n-placeholder="baseSearchPlaceholder">
+        <select id="baseSelect">
+          <option value="" data-i18n="chooseRepoFirst">-- Chọn Repo trước --</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-top: 10px;">
+        <label data-i18n="headLabel">3. Nhánh Head (Nhánh mới code):</label>
+        <input type="text" id="headSearch" class="search-input" placeholder="🔍 Lọc nhanh nhánh Head..." data-i18n-placeholder="headSearchPlaceholder">
+        <select id="headSelect">
+          <option value="" data-i18n="chooseRepoFirst">-- Chọn Repo trước --</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Card 3: Nội dung đóng gói -->
+    <div class="card">
+      <div class="form-group">
+        <label data-i18n="titleLabel">4. Tiêu đề Pull Request:</label>
+        <input type="text" id="titleInput" placeholder="Nhập tiêu đề PR ngắn gọn" data-i18n-placeholder="titlePlaceholder">
+      </div>
+    </div>
+    
+    <!-- Action Button -->
+    <button id="createPrBtn" class="btn btn-submit" data-i18n="createPrButton">Tạo Pull Request</button>
+    <div id="status"></div>
+
+    <h2 class="section-title" data-i18n="githubConfigTitle">Cấu hình GitHub</h2>
+    <!-- Card 1: Cấu hình bảo mật -->
+    <div class="card">
+      <div class="form-group">
+        <label data-i18n="tokenLabel">GitHub Personal Access Token (PAT):</label>
+        <div class="token-wrapper">
+          <input type="password" id="token" placeholder="ghp_xxxx hoặc github_pat_xxxx">
+          <button type="button" id="saveTokenBtn" class="btn btn-action" data-i18n="saveButton">Lưu</button>
+          <button type="button" id="clearTokenBtn" class="btn btn-action hidden" data-i18n="clearButton">Xóa</button>
+        </div>
+        <div id="tokenBadge" class="badge" data-i18n="tokenBadge">✓ Token đã mã hóa đám mây</div>
+      </div>
+    </div>
+
+    <!-- Footer Copyright Note -->
+    <div class="footer-credit">
+      Developed by <strong>Lê Minh Hậu</strong>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
