@@ -121,16 +121,73 @@
     .token-wrapper { display: flex; gap: 6px; }
     .token-wrapper input { flex-grow: 1; }
 
-    .language-select {
-      width: 48px;
-      min-width: 48px;
-      height: 34px;
-      padding: 4px 6px;
+    .language-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--border-color);
       border-radius: 999px;
-      font-size: 18px;
-      line-height: 1;
+      background: #ffffff;
+    }
+
+    .language-option {
+      width: 30px;
+      height: 26px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
       cursor: pointer;
-      background-color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      opacity: 0.6;
+      transition: opacity 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .language-option:hover,
+    .language-option.active {
+      opacity: 1;
+      background: var(--soft-blue);
+      box-shadow: inset 0 0 0 1px rgba(91,70,232,0.16);
+    }
+
+    .flag-icon {
+      width: 22px;
+      height: 15px;
+      display: inline-block;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.18);
+    }
+
+    .flag-vn {
+      background: #da251d;
+      position: relative;
+    }
+
+    .flag-vn::before {
+      content: "★";
+      position: absolute;
+      inset: 0;
+      color: #ffdd00;
+      font-size: 10px;
+      line-height: 15px;
+      text-align: center;
+    }
+
+    .flag-gb {
+      background:
+        linear-gradient(33deg, transparent 43%, #cf142b 43%, #cf142b 50%, transparent 50%),
+        linear-gradient(147deg, transparent 43%, #cf142b 43%, #cf142b 50%, transparent 50%),
+        linear-gradient(33deg, transparent 38%, #ffffff 38%, #ffffff 56%, transparent 56%),
+        linear-gradient(147deg, transparent 38%, #ffffff 38%, #ffffff 56%, transparent 56%),
+        linear-gradient(90deg, transparent 39%, #ffffff 39%, #ffffff 61%, transparent 61%),
+        linear-gradient(0deg, transparent 34%, #ffffff 34%, #ffffff 66%, transparent 66%),
+        linear-gradient(90deg, transparent 44%, #cf142b 44%, #cf142b 56%, transparent 56%),
+        linear-gradient(0deg, transparent 39%, #cf142b 39%, #cf142b 61%, transparent 61%),
+        #00247d;
     }
     
     .btn {
@@ -264,10 +321,14 @@
   <div class="header-bar">
     <div class="header-title">Git Pull Request <strong>Fast-Track</strong></div>
     <div class="header-actions">
-      <select id="languageSelect" class="language-select" title="Ngôn ngữ" aria-label="Ngôn ngữ" data-i18n-title="languageLabel">
-        <option value="vi">🇻🇳</option>
-        <option value="en">🇬🇧</option>
-      </select>
+      <div id="languageSelect" class="language-switcher" role="group" title="Ngôn ngữ" aria-label="Ngôn ngữ" data-i18n-title="languageLabel">
+        <button type="button" class="language-option" data-language="vi" aria-label="Tiếng Việt">
+          <span class="flag-icon flag-vn" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="language-option" data-language="en" aria-label="English">
+          <span class="flag-icon flag-gb" aria-hidden="true"></span>
+        </button>
+      </div>
       <button type="button" id="popoutBtn" class="btn-popout" title="Mở cửa sổ độc lập" data-i18n-title="popoutTitle">
         ↗ <span data-i18n="popoutButton">Cửa sổ lớn</span>
       </button>

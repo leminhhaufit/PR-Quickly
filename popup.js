@@ -130,6 +130,11 @@ function applyTranslations() {
   document.querySelectorAll('[data-i18n-title]').forEach((element) => {
     element.title = t(element.dataset.i18nTitle);
   });
+  document.querySelectorAll('[data-language]').forEach((element) => {
+    const isActive = element.dataset.language === currentLanguage;
+    element.classList.toggle('active', isActive);
+    element.setAttribute('aria-pressed', String(isActive));
+  });
 }
 
 function setStatus(text, color = 'black') {
@@ -159,7 +164,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const languageStorage = await chrome.storage.sync.get(['pr_quickly_language']);
   currentLanguage = languageStorage.pr_quickly_language || 'vi';
-  if (languageSelect) languageSelect.value = currentLanguage;
 
   const defaultRepoStorage = await chrome.storage.sync.get(['pr_quickly_default_repo']);
   defaultRepoName = defaultRepoStorage.pr_quickly_default_repo || defaultRepoName;
@@ -167,8 +171,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyTranslations();
 
   if (languageSelect) {
-    languageSelect.addEventListener('change', async (event) => {
-      currentLanguage = event.target.value;
+    languageSelect.addEventListener('click', async (event) => {
+      const languageButton = event.target.closest('[data-language]');
+      if (!languageButton) return;
+
+      currentLanguage = languageButton.dataset.language;
       await chrome.storage.sync.set({ pr_quickly_language: currentLanguage });
       applyTranslations();
       renderRepos(repoSearch.value || defaultRepoName);
